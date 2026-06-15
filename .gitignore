@@ -1,0 +1,31 @@
+# Virtual Environment
+venv/
+venv_stock/
+env/
+.env
+
+# Python caching & build
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Node / Frontend builds
+node_modules/
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# Database files & ML caches
+backend/titan.db
+backend/titan.db-journal
+backend/model_cache/
+*.db
+*.db-journal
+
+# IDEs
+.idea/
+.vscode/
+.DS_Store
