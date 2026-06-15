@@ -1,0 +1,83 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "titan-backend"
+version = "0.1.0"
+description = "Project Titan — Global AI Market Intelligence Platform"
+requires-python = ">=3.11"
+dependencies = [
+    # Web framework
+    "fastapi",
+    "uvicorn[standard]",
+    "websockets",
+    "python-multipart",
+    # Data validation & settings
+    "pydantic",
+    "pydantic-settings",
+    # Database
+    "sqlalchemy",
+    "aiosqlite",
+    "aiomysql",
+    "cryptography",
+    "alembic",
+    # HTTP client
+    "httpx",
+    "feedparser",
+    # ML & NLP
+    "torch",
+    "transformers",
+    "sentence-transformers",
+    "spacy",
+    # Numerical
+    "numpy",
+    "scikit-learn",
+    "pandas",
+    # Graph
+    "networkx",
+    # Market data
+    "yfinance",
+    # Scheduling
+    "apscheduler",
+    # Logging
+    "structlog",
+    # Utilities
+    "tenacity",
+    "cachetools",
+    "python-dateutil",
+    "beautifulsoup4",
+    "lxml",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.2.2",
+    "pytest-asyncio==0.23.7",
+    "pytest-cov==5.0.0",
+    "httpx==0.27.0",
+    "anyio==4.4.0",
+    "ruff==0.4.10",
+    "mypy==1.10.1",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "ANN", "ASYNC"]
+ignore = ["ANN101", "ANN102"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
