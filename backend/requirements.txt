@@ -11,6 +11,7 @@ cryptography==49.0.0
 alembic==1.18.4
 httpx==0.28.1
 feedparser==6.0.12
+aiohttp
 torch
 transformers
 sentence-transformers

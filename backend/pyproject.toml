@@ -48,6 +48,7 @@ dependencies = [
     "python-dateutil",
     "beautifulsoup4",
     "lxml",
+    "aiohttp",
 ]
 
 [project.optional-dependencies]
