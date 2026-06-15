@@ -148,9 +148,17 @@ class SpacyEntityExtractor:
             except OSError:
                 logger.warning(
                     "spacy_model_not_found",
-                    hint="Run: python -m spacy download en_core_web_sm",
+                    hint="Attempting on-the-fly download of en_core_web_sm...",
                 )
-                self._ready = False
+                try:
+                    from spacy.cli import download
+                    download("en_core_web_sm")
+                    self._nlp = spacy.load("en_core_web_sm")
+                    self._ready = True
+                    logger.info("spacy_model_downloaded_successfully")
+                except Exception as ex:
+                    logger.error("spacy_model_download_failed", error=str(ex))
+                    self._ready = False
 
     @timed("extract_entities")
     def extract(self, text: str) -> list[ExtractedEntity]:
