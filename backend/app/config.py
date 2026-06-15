@@ -42,7 +42,7 @@ class Settings(BaseSettings):
     # ------------------------------------------------------------------ #
     # Database                                                             #
     # ------------------------------------------------------------------ #
-    DATABASE_URL: str = "mysql+aiomysql://root:root@localhost/titan"
+    DATABASE_URL: str = "sqlite+aiosqlite:///titan.db"
 
     # ------------------------------------------------------------------ #
     # CORS                                                                 #

@@ -20,8 +20,29 @@ def hash_password(password: str) -> str:
 
 async def run_migration():
     engine = get_engine()
+    dialect = engine.dialect.name
+    from datetime import datetime
+
+    if "mysql" not in dialect:
+        logger.info(f"Dialect is '{dialect}'. Skipping raw MySQL ALTER migrations, running database-agnostic seed check...")
+        async with engine.connect() as conn:
+            try:
+                res = await conn.execute(text("SELECT id FROM users WHERE email = 'seed@titan.com'"))
+                user = res.fetchone()
+                if not user:
+                    default_hashed = hash_password("seedpassword")
+                    await conn.execute(text("""
+                        INSERT INTO users (id, email, hashed_password, created_at)
+                        VALUES ('00000000-0000-0000-0000-000000000000', 'seed@titan.com', :hashed, :created_at)
+                    """), {"hashed": default_hashed, "created_at": datetime.utcnow()})
+                    await conn.commit()
+                    logger.info("Seeded default user 'seed@titan.com' in database.")
+            except Exception as e:
+                logger.error("Failed to seed default user in database", error=str(e))
+        return
+
     async with engine.connect() as conn:
-        logger.info("Starting database schema migration...")
+        logger.info("Starting MySQL database schema migration...")
         
         # 1. Create users table if not exists
         await conn.execute(text("""
@@ -43,8 +64,9 @@ async def run_migration():
             default_hashed = hash_password("seedpassword")
             await conn.execute(text("""
                 INSERT INTO users (id, email, hashed_password, created_at)
-                VALUES ('00000000-0000-0000-0000-000000000000', 'seed@titan.com', :hashed, NOW())
-            """), {"hashed": default_hashed})
+                VALUES ('00000000-0000-0000-0000-000000000000', 'seed@titan.com', :hashed, :created_at)
+            """), {"hashed": default_hashed, "created_at": datetime.utcnow()})
+            await conn.commit()
             logger.info("Seeded default user 'seed@titan.com'")
 
         # 3. Modify holdings table: inspect columns
@@ -85,12 +107,6 @@ async def run_migration():
             await conn.execute(text("ALTER TABLE holdings ADD UNIQUE INDEX ix_holdings_user_id_ticker (user_id, ticker)"))
 
         # 8. Re-add a non-unique index on ticker for fast queries if not already present
-        # If we dropped ix_holdings_ticker, we want to make sure ticker is indexed.
-        # But wait, it's already part of the composite unique index as the second column.
-        # However, to be fully safe, let's make sure it's indexed. If 'ix_holdings_ticker' was dropped,
-        # we can add it as a normal index if needed, or leave it since (user_id, ticker) covers it if user_id is queried.
-        # Actually, adding a normal index on ticker is good.
-        # Let's see if there's any index on ticker
         if 'ix_holdings_ticker' not in index_names and 'ix_holdings_ticker_non_unique' not in index_names:
             await conn.execute(text("ALTER TABLE holdings ADD INDEX ix_holdings_ticker_non_unique (ticker)"))
 
