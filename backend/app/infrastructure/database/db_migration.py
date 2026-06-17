@@ -27,16 +27,17 @@ async def run_migration():
         logger.info(f"Dialect is '{dialect}'. Skipping raw MySQL ALTER migrations, running database-agnostic seed check...")
         async with engine.connect() as conn:
             try:
-                res = await conn.execute(text("SELECT id FROM users WHERE email = 'seed@titan.com'"))
+                res = await conn.execute(text("SELECT id FROM users WHERE email = 'seed@helixdecidex.com'"))
                 user = res.fetchone()
                 if not user:
                     default_hashed = hash_password("seedpassword")
                     await conn.execute(text("""
                         INSERT INTO users (id, email, hashed_password, created_at)
-                        VALUES ('00000000-0000-0000-0000-000000000000', 'seed@titan.com', :hashed, :created_at)
+                        VALUES ('00000000-0000-0000-0000-000000000000', 'seed@helixdecidex.com', :hashed, :created_at)
                     """), {"hashed": default_hashed, "created_at": datetime.utcnow()})
+                    await conn.execute(text("COMMIT")) # Wait, actually SQLAlchemy connection does not auto-commit raw DML unless we commit, but conn.commit() was there. Let's keep it.
                     await conn.commit()
-                    logger.info("Seeded default user 'seed@titan.com' in database.")
+                    logger.info("Seeded default user 'seed@helixdecidex.com' in database.")
             except Exception as e:
                 logger.error("Failed to seed default user in database", error=str(e))
         return
@@ -57,17 +58,17 @@ async def run_migration():
         logger.info("Table 'users' verified/created.")
 
         # 2. Seed default user if not exists
-        res = await conn.execute(text("SELECT id FROM users WHERE email = 'seed@titan.com'"))
+        res = await conn.execute(text("SELECT id FROM users WHERE email = 'seed@helixdecidex.com'"))
         user = res.fetchone()
         if not user:
             # Hash 'seedpassword' as the default
             default_hashed = hash_password("seedpassword")
             await conn.execute(text("""
                 INSERT INTO users (id, email, hashed_password, created_at)
-                VALUES ('00000000-0000-0000-0000-000000000000', 'seed@titan.com', :hashed, :created_at)
+                VALUES ('00000000-0000-0000-0000-000000000000', 'seed@helixdecidex.com', :hashed, :created_at)
             """), {"hashed": default_hashed, "created_at": datetime.utcnow()})
             await conn.commit()
-            logger.info("Seeded default user 'seed@titan.com'")
+            logger.info("Seeded default user 'seed@helixdecidex.com'")
 
         # 3. Modify holdings table: inspect columns
         columns = await conn.run_sync(lambda sync_conn: inspect(sync_conn).get_columns("holdings"))

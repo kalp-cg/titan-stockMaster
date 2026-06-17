@@ -3,9 +3,9 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "titan-backend"
+name = "helix-decidex-backend"
 version = "0.1.0"
-description = "Project Titan — Global AI Market Intelligence Platform"
+description = "Helix Decidex — Global AI Market Intelligence Platform"
 requires-python = ">=3.11"
 dependencies = [
     # Web framework

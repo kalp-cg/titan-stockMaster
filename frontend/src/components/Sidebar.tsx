@@ -38,7 +38,7 @@ export default function Sidebar({ activeTab, setActiveTab, connected }: SidebarP
         <div className="flex items-center gap-3 mb-10 px-2">
           <TrendingUp className="w-8 h-8 text-black" />
           <div>
-            <h1 className="font-bold text-lg text-black leading-none">PROJECT TITAN</h1>
+            <h1 className="font-bold text-lg text-black leading-none">HELIX DECIDEX</h1>
             <span className="text-[10px] text-zinc-500 tracking-wider">MARKET INTELLIGENCE</span>
           </div>
         </div>

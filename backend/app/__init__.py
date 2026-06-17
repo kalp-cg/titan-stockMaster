@@ -1,1 +1,1 @@
-"""Project Titan Backend Application."""
+"""Helix Decidex Backend Application."""

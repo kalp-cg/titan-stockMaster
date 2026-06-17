@@ -181,7 +181,7 @@ export default function SimulatorView({ prices = {} }: { prices?: Record<string,
           <p className="text-xs text-zinc-500 mt-1">Stress test global shifts and traverse causal graph propagation chains across your portfolio.</p>
         </div>
         <span className="text-[10px] border border-black bg-black text-white px-2.5 py-1 font-mono uppercase tracking-wider">
-          Titan Engine Active
+          Helix Decidex Engine Active
         </span>
       </div>
 

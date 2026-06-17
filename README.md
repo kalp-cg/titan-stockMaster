@@ -1,8 +1,8 @@
-# 🌌 PROJECT TITAN
+# 🌌 HELIX DECIDEX
 ## Global AI Market Intelligence & Event Impact Platform
 
 > [!IMPORTANT]
-> **Project Titan** is a self-learning global market intelligence platform. It continuously ingests, analyzes, and correlates world events to predict economic and stock market impacts. It is designed to act as an institutional-grade, retail-accessible "Bloomberg Terminal" alternative that runs entirely on local, custom-trained ML models, avoiding dependency on proprietary third-party APIs (like OpenAI GPT/Claude) for core intelligence.
+> **Helix Decidex** is a self-learning global market intelligence platform. It continuously ingests, analyzes, and correlates world events to predict economic and stock market impacts. It is designed to act as an institutional-grade, retail-accessible "Bloomberg Terminal" alternative that runs entirely on local, custom-trained ML models, avoiding dependency on proprietary third-party APIs (like OpenAI GPT/Claude) for core intelligence.
 
 ---
 
@@ -339,7 +339,7 @@ Evaluates asset health in real time:
 
 ## 🔄 The Self-Learning Feedback Loop
 
-Project Titan grows smarter over time using an automated evaluation cycle:
+Helix Decidex grows smarter over time using an automated evaluation cycle:
 
 ```mermaid
 sequenceDiagram

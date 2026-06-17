@@ -1,5 +1,5 @@
 /**
- * API client library for Project Titan.
+ * API client library for Helix Decidex.
  */
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
@@ -10,7 +10,7 @@ export async function fetchAPI(endpoint: string, options: RequestInit = {}) {
   };
 
   if (typeof window !== "undefined") {
-    const token = localStorage.getItem("titan_auth_token");
+    const token = localStorage.getItem("helix_decidex_auth_token");
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
     }
@@ -25,6 +25,10 @@ export async function fetchAPI(endpoint: string, options: RequestInit = {}) {
   });
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
+    if (res.status === 401 && typeof window !== "undefined") {
+      localStorage.removeItem("helix_decidex_auth_token");
+      window.location.reload();
+    }
     throw new Error(errorData.detail || `HTTP error ${res.status}`);
   }
   return res.json();

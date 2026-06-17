@@ -22,11 +22,11 @@ export default function AuthView({ onSuccess }: AuthViewProps) {
     try {
       if (isLogin) {
         const res = await api.login(email, password);
-        localStorage.setItem("titan_auth_token", res.access_token);
+        localStorage.setItem("helix_decidex_auth_token", res.access_token);
         onSuccess(res.access_token);
       } else {
         const res = await api.signup(email, password);
-        localStorage.setItem("titan_auth_token", res.access_token);
+        localStorage.setItem("helix_decidex_auth_token", res.access_token);
         onSuccess(res.access_token);
       }
     } catch (err: any) {
@@ -48,7 +48,7 @@ export default function AuthView({ onSuccess }: AuthViewProps) {
  |  __/|  _ <| |_| |_| | |___| |___  | |  
  |_|   |_| \\_\\\\___/ \\___/|_____\\____| |_|  
                                           
-         T I T A N   P F I O S            
+       D E C I D E X   P F I O S          
 =========================================`}
         </pre>
       </div>

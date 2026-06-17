@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Project Titan — Global AI Market Intelligence Platform",
+  title: "Helix Decidex — Global AI Market Intelligence Platform",
   description: "Real-time AI-driven economic knowledge graph, NLP event classification, and corporate stakeholder filings analytics.",
 };
 

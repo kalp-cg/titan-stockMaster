@@ -1,7 +1,7 @@
 """
-Custom exception hierarchy for Project Titan.
+Custom exception hierarchy for Helix Decidex.
 
-All exceptions extend TitanError which carries a human-readable
+All exceptions extend HelixError which carries a human-readable
 message, an optional machine-readable error code, and optional
 contextual data for debugging.
 
@@ -14,7 +14,7 @@ from __future__ import annotations
 from typing import Any
 
 
-class TitanError(Exception):
+class HelixError(Exception):
     """Base exception for all application errors."""
 
     status_code: int = 500
@@ -43,7 +43,7 @@ class TitanError(Exception):
 # ------------------------------------------------------------------ #
 
 
-class IngestionError(TitanError):
+class IngestionError(HelixError):
     """Raised when a data source fails to deliver expected data."""
 
     status_code = 502
@@ -69,7 +69,7 @@ class ParseError(IngestionError):
 # ------------------------------------------------------------------ #
 
 
-class ModelError(TitanError):
+class ModelError(HelixError):
     """Raised when an ML model fails to produce a valid output."""
 
     status_code = 500
@@ -88,7 +88,7 @@ class ModelNotLoadedError(ModelError):
 # ------------------------------------------------------------------ #
 
 
-class PredictionError(TitanError):
+class PredictionError(HelixError):
     """Raised when the prediction pipeline cannot produce a result."""
 
     status_code = 500
@@ -107,7 +107,7 @@ class InsufficientDataError(PredictionError):
 # ------------------------------------------------------------------ #
 
 
-class PortfolioError(TitanError):
+class PortfolioError(HelixError):
     """Raised when a portfolio operation fails."""
 
     status_code = 400
@@ -126,7 +126,7 @@ class HoldingNotFoundError(PortfolioError):
 # ------------------------------------------------------------------ #
 
 
-class GraphError(TitanError):
+class GraphError(HelixError):
     """Raised when the knowledge graph cannot resolve a query."""
 
     status_code = 500
@@ -145,7 +145,7 @@ class NodeNotFoundError(GraphError):
 # ------------------------------------------------------------------ #
 
 
-class StakeholderError(TitanError):
+class StakeholderError(HelixError):
     """Raised when stakeholder data retrieval fails."""
 
     status_code = 502
@@ -157,7 +157,7 @@ class StakeholderError(TitanError):
 # ------------------------------------------------------------------ #
 
 
-class NotFoundError(TitanError):
+class NotFoundError(HelixError):
     """Generic 404 when a resource is not found."""
 
     status_code = 404
@@ -169,7 +169,7 @@ class NotFoundError(TitanError):
 # ------------------------------------------------------------------ #
 
 
-class ValidationError(TitanError):
+class ValidationError(HelixError):
     """Raised when input validation fails outside Pydantic."""
 
     status_code = 422

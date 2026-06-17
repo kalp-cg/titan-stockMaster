@@ -34,7 +34,7 @@ class Settings(BaseSettings):
     # ------------------------------------------------------------------ #
     # Application                                                          #
     # ------------------------------------------------------------------ #
-    APP_NAME: str = "Project Titan"
+    APP_NAME: str = "Helix Decidex"
     APP_VERSION: str = "0.1.0"
     DEBUG: bool = False
     LOG_LEVEL: str = "INFO"
@@ -42,7 +42,7 @@ class Settings(BaseSettings):
     # ------------------------------------------------------------------ #
     # Database                                                             #
     # ------------------------------------------------------------------ #
-    DATABASE_URL: str = "sqlite+aiosqlite:///titan.db"
+    DATABASE_URL: str = "sqlite+aiosqlite:///helix_decidex.db"
 
     # ------------------------------------------------------------------ #
     # CORS                                                                 #

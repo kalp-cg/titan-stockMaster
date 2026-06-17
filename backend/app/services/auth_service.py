@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from typing import Any
 
 # JWT sign and verification keys
-JWT_SECRET = "titan_super_secret_key"
+JWT_SECRET = "helix_decidex_super_secret_key"
 
 def hash_password(password: str) -> str:
     """Hash a password using PBKDF2-HMAC-SHA256 with 100,000 iterations and 16-byte salt."""

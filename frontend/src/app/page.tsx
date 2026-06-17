@@ -27,7 +27,7 @@ export default function Home() {
 
   // Load token from localStorage on mount
   useEffect(() => {
-    const savedToken = localStorage.getItem("titan_auth_token");
+    const savedToken = localStorage.getItem("helix_decidex_auth_token");
     setToken(savedToken);
     setAuthChecked(true);
   }, []);
@@ -117,7 +117,7 @@ export default function Home() {
           activeAlertCount={activeAlertCount}
           prices={prices}
           onLogout={() => {
-            localStorage.removeItem("titan_auth_token");
+            localStorage.removeItem("helix_decidex_auth_token");
             setToken(null);
           }}
         />
